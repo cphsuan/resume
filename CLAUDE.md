@@ -65,6 +65,19 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
 - Jest 30 with React Testing Library
 - Prettier 3.6 with Tailwind CSS and import sorting plugins
 
+## CI/CD
+
+### GitHub Actions
+
+- **Workflow**: `.github/workflows/ci.yml`
+- **Triggers**: Push/PR to main branch, manual dispatch
+- **Node.js**: Version 22
+- **Package Manager**: pnpm with caching
+- **Jobs**:
+  - **Test**: Runs `pnpm test` (Jest tests must pass)
+  - **Format Check**: Runs `pnpm format:check` (Prettier formatting must be correct)
+  - **Lint**: Runs `pnpm lint` (ESLint rules must pass)
+
 ## Development Notes
 
 - The project uses pnpm as the package manager
@@ -73,6 +86,7 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
 - Jest is configured with TypeScript support and Next.js integration
 - Prettier formats code automatically with Tailwind CSS class sorting and import organization
 - Static assets are served from the `public/` directory
+- All commits to main branch are validated by CI pipeline
 
 ## Git Commit Rules
 
