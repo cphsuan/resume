@@ -56,3 +56,19 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
 - ESLint is configured with Next.js core web vitals and TypeScript rules
 - Jest is configured with TypeScript support and Next.js integration
 - Static assets are served from the `public/` directory
+
+## Git Commit Rules
+
+When committing changes, always follow these rules:
+- Use Commitizen-style commit messages with format: `type: description`
+- Include detailed bullet points explaining all changes
+- **NEVER** include "Generated with Claude Code" or similar attribution
+- Commit messages should be clean and professional
+- Example format:
+  ```
+  feat: add new feature
+
+  - Add specific functionality A
+  - Update configuration B
+  - Fix issue C
+  ```
