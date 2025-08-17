@@ -1,0 +1,49 @@
+name: Deploy to Render
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Render
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "❌ RENDER_DEPLOY_HOOK_URL secret is not set"
+            exit 1
+          fi
+          
+          echo "🚀 Triggering deployment to Render..."
+          
+          response=$(curl -s -w "%{http_code}" -X POST "$RENDER_DEPLOY_HOOK_URL")
+          http_code="${response: -3}"
+          
+          if [ "$http_code" = "200" ] || [ "$http_code" = "201" ]; then
+            echo "✅ Deployment triggered successfully"
+            echo "📝 HTTP Status: $http_code"
+          else
+            echo "❌ Deployment failed"
+            echo "📝 HTTP Status: $http_code"
+            echo "📝 Response: ${response%???}"
+            exit 1
+          fi
+
+      - name: Deployment Status
+        run: |
+          echo "🎉 Deployment to Render has been triggered!"
+          echo "📖 Check your Render dashboard for deployment progress"
+          echo "🔗 Your app will be available at your Render URL once deployed"
