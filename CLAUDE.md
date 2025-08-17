@@ -70,6 +70,7 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
 ### GitHub Actions
 
 #### CI Pipeline
+
 - **Workflow**: `.github/workflows/ci.yml`
 - **Triggers**: Push/PR to main branch, manual dispatch
 - **Node.js**: Version 22
@@ -80,6 +81,7 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
   - **Lint**: Runs `pnpm lint` (ESLint rules must pass)
 
 #### Deployment Pipeline
+
 - **Workflow**: `.github/workflows/deploy.yml`
 - **Triggers**: After CI workflow completes successfully on main branch, manual dispatch
 - **Target**: Render web service
@@ -90,6 +92,7 @@ This is a Next.js 15 resume website built with TypeScript, React 19, and Tailwin
 - **Requirements**: `RENDER_DEPLOY_HOOK_URL` secret must be configured
 
 ### Render Configuration
+
 - **Build Command**: `pnpm install && pnpm build`
 - **Start Command**: `pnpm start`
 - **Environment**: Node.js

@@ -26,12 +26,12 @@ jobs:
             echo "❌ RENDER_DEPLOY_HOOK_URL secret is not set"
             exit 1
           fi
-          
+
           echo "🚀 Triggering deployment to Render..."
-          
+
           response=$(curl -s -w "%{http_code}" -X POST "$RENDER_DEPLOY_HOOK_URL")
           http_code="${response: -3}"
-          
+
           if [ "$http_code" = "200" ] || [ "$http_code" = "201" ]; then
             echo "✅ Deployment triggered successfully"
             echo "📝 HTTP Status: $http_code"
