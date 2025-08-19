@@ -42,12 +42,15 @@ describe('useTheme Hook', () => {
           remove: jest.fn(),
           add: jest.fn(),
         },
+        style: {
+          colorScheme: '',
+        },
       },
       writable: true,
     })
   })
 
-  it('initializes with system theme by default', () => {
+  it('initializes with light theme by default', () => {
     localStorageMock.getItem.mockReturnValue(null)
     mockMatchMedia.mockImplementation(query => ({
       matches: false, // Light mode preferred
@@ -60,7 +63,7 @@ describe('useTheme Hook', () => {
 
     const { result } = renderHook(() => useTheme())
 
-    expect(result.current.theme).toBe('system')
+    expect(result.current.theme).toBe('light')
     expect(result.current.resolvedTheme).toBe('light')
   })
 
@@ -112,10 +115,11 @@ describe('useTheme Hook', () => {
       dispatchEvent: jest.fn(),
     }))
 
-    localStorageMock.getItem.mockReturnValue(null)
+    localStorageMock.getItem.mockReturnValue('system')
 
     const { result } = renderHook(() => useTheme())
 
+    expect(result.current.theme).toBe('system')
     expect(result.current.resolvedTheme).toBe('dark')
   })
 
@@ -128,6 +132,9 @@ describe('useTheme Hook', () => {
     Object.defineProperty(document, 'documentElement', {
       value: {
         classList: mockClassList,
+        style: {
+          colorScheme: '',
+        },
       },
       writable: true,
     })
@@ -158,15 +165,18 @@ describe('useTheme Hook', () => {
       dispatchEvent: jest.fn(),
     }))
 
-    localStorageMock.getItem.mockReturnValue(null) // system theme
+    localStorageMock.getItem.mockReturnValue('system') // system theme
 
     const { result } = renderHook(() => useTheme())
 
+    expect(result.current.theme).toBe('system')
     expect(result.current.resolvedTheme).toBe('light')
 
     // Simulate system theme change to dark
     act(() => {
-      mediaQueryCallback({ matches: true })
+      if (mediaQueryCallback) {
+        mediaQueryCallback({ matches: true })
+      }
     })
 
     expect(result.current.resolvedTheme).toBe('dark')
@@ -184,7 +194,7 @@ describe('useTheme Hook', () => {
       dispatchEvent: jest.fn(),
     }))
 
-    localStorageMock.getItem.mockReturnValue(null)
+    localStorageMock.getItem.mockReturnValue('system')
 
     const { unmount } = renderHook(() => useTheme())
 

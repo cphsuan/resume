@@ -1,23 +1,52 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import { Button } from '@/components/ui'
-import { useTheme } from '@/hooks/useTheme'
 
 export default function ThemeToggle() {
-  const { theme, resolvedTheme, setTheme } = useTheme()
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const stored = localStorage.getItem('theme')
+    if (stored === 'dark') {
+      setTheme('dark')
+      document.documentElement.classList.add('dark')
+    } else {
+      setTheme('light')
+      document.documentElement.classList.add('light')
+    }
+  }, [])
 
   const toggleTheme = () => {
-    if (theme === 'system') {
-      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-    } else {
-      setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+
+    document.documentElement.classList.remove('light', 'dark')
+    document.documentElement.classList.add(newTheme)
+  }
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="sm" aria-label="Loading theme toggle" className="h-9 w-9 p-0" disabled>
+        <div className="h-4 w-4 animate-pulse rounded bg-gray-300 dark:bg-gray-600" />
+      </Button>
+    )
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={toggleTheme} aria-label="Toggle theme" className="h-9 w-9 p-0">
-      {resolvedTheme === 'dark' ? (
-        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={toggleTheme}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      className="h-9 w-9 p-0 transition-all duration-200 hover:scale-110"
+    >
+      {theme === 'dark' ? (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -26,7 +55,7 @@ export default function ThemeToggle() {
           />
         </svg>
       ) : (
-        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

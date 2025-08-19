@@ -21,9 +21,9 @@ export default function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 right-0 left-0 z-50 transition-all duration-200',
+        'fixed top-0 right-0 left-0 z-50 transition-all duration-300',
         isScrolled
-          ? 'border-b border-gray-200/50 bg-white/80 backdrop-blur-md dark:border-gray-700/50 dark:bg-gray-900/80'
+          ? 'border-b border-gray-200/50 bg-white/90 shadow-sm backdrop-blur-md dark:border-gray-700/50 dark:bg-gray-900/90'
           : 'bg-transparent'
       )}
     >
@@ -32,9 +32,15 @@ export default function Header() {
           <div className="flex-shrink-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-xl font-bold text-gray-900 transition-colors duration-200 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+              className="group flex items-center space-x-2 rounded-md px-2 py-1 text-xl font-bold text-gray-900 transition-all duration-200 hover:text-blue-600 focus:text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:text-white dark:hover:text-blue-400 dark:focus:text-blue-400"
             >
-              Your Name
+              <span>Your Name</span>
+              <div
+                className={cn(
+                  'h-2 w-2 rounded-full bg-green-500 transition-all duration-200',
+                  isScrolled ? 'animate-pulse opacity-100' : 'opacity-0'
+                )}
+              />
             </button>
           </div>
 
