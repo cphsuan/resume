@@ -3,7 +3,7 @@ import { HTMLAttributes, forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'outlined' | 'elevated'
+  variant?: 'default' | 'outlined' | 'elevated' | 'glass'
   padding?: 'none' | 'sm' | 'md' | 'lg'
 }
 
@@ -12,9 +12,10 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     const baseClasses = 'rounded-lg transition-all duration-200'
 
     const variantClasses = {
-      default: 'bg-white dark:bg-gray-800',
-      outlined: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
-      elevated: 'bg-white dark:bg-gray-800 shadow-md hover:shadow-lg',
+      default: 'bg-background-elevated',
+      outlined: 'bg-background-elevated border border-border',
+      elevated: 'bg-background-elevated shadow-md hover:shadow-lg',
+      glass: 'bg-background-overlay backdrop-blur-md border border-border-subtle',
     }
 
     const paddingClasses = {
@@ -46,14 +47,14 @@ interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(({ className, as: Component = 'h3', ...props }, ref) => (
-  <Component ref={ref} className={cn('text-xl font-semibold text-gray-900 dark:text-gray-100', className)} {...props} />
+  <Component ref={ref} className={cn('text-foreground text-xl font-semibold', className)} {...props} />
 ))
 CardTitle.displayName = 'CardTitle'
 
 type CardDescriptionProps = HTMLAttributes<HTMLParagraphElement>
 
 const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-gray-600 dark:text-gray-400', className)} {...props} />
+  <p ref={ref} className={cn('text-foreground-muted', className)} {...props} />
 ))
 CardDescription.displayName = 'CardDescription'
 

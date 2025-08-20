@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'success' | 'warning' | 'error'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
 }
@@ -11,15 +11,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
     const baseClasses =
-      'relative inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98] touch-manipulation'
+      'relative inline-flex items-center justify-center rounded font-medium transition-all duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring focus:ring-offset-ring-offset disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98] touch-manipulation'
 
     const variantClasses = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 active:shadow-sm focus:ring-blue-500',
-      secondary:
-        'bg-gray-100 text-gray-900 hover:bg-gray-200 active:shadow-sm focus:ring-gray-500 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
+      primary: 'bg-primary text-primary-foreground hover:bg-primary-hover active:shadow-sm shadow-sm',
+      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:shadow-sm shadow-sm',
+      accent: 'bg-accent text-accent-foreground hover:bg-accent-hover active:shadow-sm shadow-sm',
       outline:
-        'border border-gray-300 bg-white text-gray-700 shadow-sm hover:shadow-md active:shadow-sm focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
-      ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500 dark:text-gray-400 dark:hover:bg-gray-800',
+        'border border-border bg-background-elevated text-foreground hover:bg-background-alt hover:border-border-hover active:shadow-sm shadow-sm',
+      ghost: 'text-foreground-alt hover:bg-background-alt hover:text-foreground active:bg-background-elevated',
+      success: 'bg-success text-success-foreground hover:bg-success-hover active:shadow-sm shadow-sm',
+      warning: 'bg-warning text-warning-foreground hover:bg-warning-hover active:shadow-sm shadow-sm',
+      error: 'bg-error text-error-foreground hover:bg-error-hover active:shadow-sm shadow-sm',
     }
 
     const sizeClasses = {
@@ -36,8 +39,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {/* Overlay for enhanced interactions */}
-        <span className="absolute inset-0 overflow-hidden rounded-lg">
-          <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-200 hover:opacity-100" />
+        <span className="absolute inset-0 overflow-hidden rounded">
+          <span className="bg-overlay-hover absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
         </span>
 
         <span className="relative z-10 flex items-center">
