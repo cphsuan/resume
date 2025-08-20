@@ -8,18 +8,18 @@ describe('Button Component', () => {
 
     const button = screen.getByRole('button', { name: /click me/i })
     expect(button).toBeInTheDocument()
-    expect(button).toHaveClass('bg-blue-600', 'text-white', 'px-4', 'py-2.5', 'text-sm')
+    expect(button).toHaveClass('bg-primary', 'text-primary-foreground', 'px-4', 'py-2.5', 'text-sm')
   })
 
   it('applies different variants correctly', () => {
     const { rerender } = render(<Button variant="secondary">Secondary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-gray-100', 'text-gray-900')
+    expect(screen.getByRole('button')).toHaveClass('bg-secondary', 'text-secondary-foreground')
 
     rerender(<Button variant="outline">Outline</Button>)
-    expect(screen.getByRole('button')).toHaveClass('border', 'border-gray-300', 'bg-white')
+    expect(screen.getByRole('button')).toHaveClass('border', 'border-border', 'bg-background-elevated')
 
     rerender(<Button variant="ghost">Ghost</Button>)
-    expect(screen.getByRole('button')).toHaveClass('text-gray-600', 'hover:bg-gray-100')
+    expect(screen.getByRole('button')).toHaveClass('text-foreground-alt', 'hover:bg-background-alt')
   })
 
   it('applies different sizes correctly', () => {

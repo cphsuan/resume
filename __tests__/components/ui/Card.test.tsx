@@ -9,12 +9,12 @@ describe('Card Components', () => {
 
       const card = screen.getByText('Card content')
       expect(card).toBeInTheDocument()
-      expect(card).toHaveClass('rounded-lg', 'transition-all', 'duration-200', 'bg-white', 'p-6')
+      expect(card).toHaveClass('rounded-lg', 'transition-all', 'duration-200', 'bg-background-elevated', 'p-6')
     })
 
     it('applies different variants correctly', () => {
       const { rerender } = render(<Card variant="outlined">Outlined</Card>)
-      expect(screen.getByText('Outlined')).toHaveClass('border', 'border-gray-200')
+      expect(screen.getByText('Outlined')).toHaveClass('border', 'border-border')
 
       rerender(<Card variant="elevated">Elevated</Card>)
       expect(screen.getByText('Elevated')).toHaveClass('shadow-md', 'hover:shadow-lg')
@@ -71,7 +71,7 @@ describe('Card Components', () => {
 
       const description = screen.getByText('Description text')
       expect(description).toBeInTheDocument()
-      expect(description).toHaveClass('text-gray-600')
+      expect(description).toHaveClass('text-foreground-muted')
     })
   })
 
