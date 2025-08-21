@@ -1,0 +1,56 @@
+{
+  "name": "Resume Website Components",
+  "entryPoints": ["./components", "./lib", "./hooks"],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "theme": "default",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": ["Components", "UI Components", "Hooks", "API", "Utilities", "*"],
+  "sort": ["source-order"],
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true,
+    "external": false
+  },
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "readme": "./README.md",
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.storybook/**",
+    "**/stories/**",
+    "**/e2e/**"
+  ],
+  "tsconfig": "./tsconfig.json",
+  "plugin": ["typedoc-plugin-markdown"],
+  "gitRevision": "main",
+  "sourceLinkTemplate": "https://github.com/yourusername/resume/blob/{gitRevision}/{path}#L{line}",
+  "customCss": "./docs/typedoc-custom.css",
+  "hideGenerator": true,
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "treatWarningsAsErrors": false,
+  "preserveWatchOutput": true,
+  "pretty": true
+}
