@@ -1,0 +1,46 @@
+{
+  "recommendations": [
+    // Essential Extensions
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+
+    // TypeScript & JavaScript
+    "ms-vscode.vscode-typescript-next",
+    "yoavbls.pretty-ts-errors",
+
+    // React & Next.js
+    "dsznajder.es7-react-js-snippets",
+    "burkeholland.simple-react-snippets",
+
+    // Testing
+    "orta.vscode-jest",
+    "firsttris.vscode-jest-runner",
+
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Productivity
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "formulahendry.auto-rename-tag",
+    "naumovs.color-highlight",
+    "aaron-bond.better-comments",
+    "streetsidesoftware.code-spell-checker",
+
+    // Debugging
+    "msjsdiag.debugger-for-chrome",
+    "firefox-devtools.vscode-firefox-debug",
+
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-preview-github-styles",
+
+    // Other Utilities
+    "wix.vscode-import-cost",
+    "mikestead.dotenv",
+    "usernamehw.errorlens",
+    "gruntfuggly.todo-tree"
+  ]
+}

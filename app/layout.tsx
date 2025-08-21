@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 
+import ErrorBoundary from '@/components/common/ErrorBoundary'
 import JsonLd from '@/components/common/JsonLd'
 import ScrollIndicator from '@/components/common/ScrollIndicator'
 import { generateSEOMetadata, generateStructuredData } from '@/lib/seo'
@@ -34,7 +35,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ScrollIndicator />
-        {children}
+        <ErrorBoundary>{children}</ErrorBoundary>
       </body>
     </html>
   )

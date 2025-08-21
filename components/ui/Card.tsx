@@ -1,39 +1,21 @@
-import { HTMLAttributes, forwardRef } from 'react'
+import { HTMLAttributes, forwardRef, memo } from 'react'
 
 import { cn } from '@/lib/utils'
+import { type CardVariants, cardVariants } from '@/lib/variants'
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'outlined' | 'elevated' | 'glass'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-}
+interface CardProps extends HTMLAttributes<HTMLDivElement>, CardVariants {}
 
-const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'default', padding = 'md', children, ...props }, ref) => {
-    const baseClasses = 'rounded-lg transition-all duration-200'
-
-    const variantClasses = {
-      default: 'bg-background-elevated',
-      outlined: 'bg-background-elevated border border-border',
-      elevated: 'bg-background-elevated shadow-md hover:shadow-lg',
-      glass: 'bg-background-overlay backdrop-blur-md border border-border-subtle',
-    }
-
-    const paddingClasses = {
-      none: '',
-      sm: 'p-4',
-      md: 'p-6',
-      lg: 'p-8',
-    }
-
-    return (
-      <div className={cn(baseClasses, variantClasses[variant], paddingClasses[padding], className)} ref={ref} {...props}>
-        {children}
-      </div>
-    )
-  }
-)
+const Card = forwardRef<HTMLDivElement, CardProps>(({ className, variant, padding, children, ...props }, ref) => {
+  return (
+    <div className={cn(cardVariants({ variant, padding }), className)} ref={ref} {...props}>
+      {children}
+    </div>
+  )
+})
 
 Card.displayName = 'Card'
+
+const MemoizedCard = memo(Card)
 
 type CardHeaderProps = HTMLAttributes<HTMLDivElement>
 
@@ -72,4 +54,5 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(({ className, ...
 ))
 CardFooter.displayName = 'CardFooter'
 
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
+export { MemoizedCard as Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
+export { cardVariants, type CardVariants }

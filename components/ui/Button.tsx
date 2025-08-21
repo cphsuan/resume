@@ -1,43 +1,16 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react'
+import { ButtonHTMLAttributes, forwardRef, memo } from 'react'
 
 import { cn } from '@/lib/utils'
+import { type ButtonVariants, buttonVariants } from '@/lib/variants'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'success' | 'warning' | 'error'
-  size?: 'sm' | 'md' | 'lg'
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
   isLoading?: boolean
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
-    const baseClasses =
-      'relative inline-flex items-center justify-center rounded font-medium transition-all duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring focus:ring-offset-ring-offset disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98] touch-manipulation'
-
-    const variantClasses = {
-      primary: 'bg-primary text-primary-foreground hover:bg-primary-hover active:shadow-sm shadow-sm',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:shadow-sm shadow-sm',
-      accent: 'bg-accent text-accent-foreground hover:bg-accent-hover active:shadow-sm shadow-sm',
-      outline:
-        'border border-border bg-background-elevated text-foreground hover:bg-background-alt hover:border-border-hover active:shadow-sm shadow-sm',
-      ghost: 'text-foreground-alt hover:bg-background-alt hover:text-foreground active:bg-background-elevated',
-      success: 'bg-success text-success-foreground hover:bg-success-hover active:shadow-sm shadow-sm',
-      warning: 'bg-warning text-warning-foreground hover:bg-warning-hover active:shadow-sm shadow-sm',
-      error: 'bg-error text-error-foreground hover:bg-error-hover active:shadow-sm shadow-sm',
-    }
-
-    const sizeClasses = {
-      sm: 'px-3 py-2 text-sm min-h-[36px] min-w-[36px] @media (hover: none) and (pointer: coarse)',
-      md: 'px-4 py-2.5 text-sm min-h-[40px] min-w-[40px] @media (hover: none) and (pointer: coarse)',
-      lg: 'px-6 py-3 text-base min-h-[44px] @media (hover: none) and (pointer: coarse)',
-    }
-
+  ({ className, variant, size, isLoading, children, disabled, ...props }, ref) => {
     return (
-      <button
-        className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
-        disabled={disabled || isLoading}
-        ref={ref}
-        {...props}
-      >
+      <button className={cn(buttonVariants({ variant, size }), className)} disabled={disabled || isLoading} ref={ref} {...props}>
         {/* Overlay for enhanced interactions */}
         <span className="absolute inset-0 overflow-hidden rounded">
           <span className="bg-overlay-hover absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -63,4 +36,5 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button'
 
-export default Button
+export default memo(Button)
+export { buttonVariants, type ButtonVariants }
